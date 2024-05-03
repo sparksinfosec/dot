@@ -19,7 +19,9 @@ set shortmess=aoOtTi
 
 " colorscheme=gruvbox (need to use a plugin for this additional info needed)
 set background=dark
-colorscheme murphy
+
+set termguicolors 
+
 
 
 set number
@@ -73,6 +75,14 @@ inoremap <left> <NOP>
 inoremap <right> <NOP>
 " Comment out above to remove
 
+if filereadable(expand("~/.vim/autoload/plug.vim"))
 
+call plug#begin('~/.vim/plugged')
+
+Plug 'morhetz/gruvbox'
+
+call plug#end()
+colorscheme gruvbox
+endif
 
 
