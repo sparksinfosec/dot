@@ -20,7 +20,8 @@ set shortmess=aoOtTi
 " colorscheme=gruvbox (need to use a plugin for this additional info needed)
 set background=dark
 
-set termguicolors 
+" remove as it impacts colors on tmux
+" set termguicolors 
 
 
 
