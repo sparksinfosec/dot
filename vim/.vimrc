@@ -2,6 +2,10 @@ if has("eval")
 	let skip_defaults_vim = 1 
 endif 
 
+
+" look at guicursor settings to make the cursor more visible
+
+
 set laststatus=2
 set nocompatible 
 
