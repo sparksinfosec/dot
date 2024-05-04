@@ -2,6 +2,7 @@ if has("eval")
 	let skip_defaults_vim = 1 
 endif 
 
+set laststatus=2
 set nocompatible 
 
 set autoindent
