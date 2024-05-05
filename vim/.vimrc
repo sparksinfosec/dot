@@ -1,3 +1,9 @@
+" Note of the verbose option for VIM
+" verbose set option? (will show where the option is loaded from) test
+" Like markdown getting a different local formatting option
+" verbose set formatoption? (shows where it was loaded from 
+" Likely local plugins see formatting option at bottom of doc for more detail
+
 if has("eval")
 	let skip_defaults_vim = 1 
 endif 
@@ -46,7 +52,10 @@ set smartindent
 
 set listchars=space:*,trail:*,nbsp:*,extends:>,precedes:<,tab:\|>
 
-set textwidth=72
+" Setting this to prevent wrap in markdown see format options below for more
+" information 
+" Be careful with this default
+set textwidth=0
 
 " risky but cleaner 
 
@@ -93,4 +102,25 @@ call plug#end()
 colorscheme gruvbox
 endif
 
+" Might not need the wrap! as the formating takes care of that 
+" set wrap!
 
+" Formating is overridden by local plugins
+" (/usr/share/vim/vim86/ftplugin)
+set fo-=t   " don't auto-wrap text using text width
+set fo+=c   " autowrap comments using textwidth with leader
+set fo-=r   " don't auto-insert comment leader on enter in insert
+set fo-=o   " don't auto-insert comment leader on o/O in normal
+set fo+=q   " allow formatting of comments with gq
+set fo-=w   " don't use trailing whitespace for paragraphs
+set fo-=a   " disable auto-formatting of paragraph changes
+set fo-=n   " don't recognized numbered lists
+set fo+=j   " delete comment prefix when joining
+set fo-=2   " don't use the indent of second paragraph line
+set fo-=v   " don't use broken 'vi-compatible auto-wrapping'
+set fo-=b   " don't use broken 'vi-compatible auto-wrapping'
+set fo+=l   " long lines not broken in insert mode
+set fo+=m   " multi-byte character line break support
+set fo+=M   " don't add space before or after multi-byte char
+set fo-=B   " don't add space between two multi-byte chars
+set fo+=1   " don't break a line after a one-letter word
