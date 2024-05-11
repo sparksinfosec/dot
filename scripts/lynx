@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # be sure to install the ca-certificates package
-# Courtsey of RWXrob beginner boost and dot file
+# Credit RWXrob beginner boost and dot file
 
 # see ../lynx/README.md for configs
 # replace the lynx installed exec setup reminders in scripts/lynx/README

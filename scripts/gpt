@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Courtsey of RWXrob beginner boost and dot file
+# Credit RWXrob beginner boost and dot file
 # Requires mods charmbracelet/mods
 
 _have() { type "$1" &>/dev/null; }
