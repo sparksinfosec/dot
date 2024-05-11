@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Credit RWXROB best dot file online github.com/rwxrob/dot
+# cmd input encoding to pass to duck and google scripts
 
 rawurlencode() {
   local string="${1}"
