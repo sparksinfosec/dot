@@ -1,4 +1,4 @@
-# dot
+# Stephen Sparks Dot File 
 
 * Update with a setup script (either per tool or one master shell script)
 * Set up symbolic links for you 
