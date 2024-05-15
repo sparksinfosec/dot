@@ -1,7 +1,7 @@
 # Lynx Test Browser 
 
 * Require the lynx script in dot/scripts/lynx 
-* Installing the config files to ~/.config/lynx 
+* Installing the config files (.lss and .cfg) to ~/.config/lynx 
 * Then running the lynx script in place of the lynx executable 
 * Need to add to path (~/.local/bin likely)
 * Adding lynx script to that dir make sure to verify with which 
