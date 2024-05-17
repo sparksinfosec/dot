@@ -12,7 +12,7 @@ then # Then we will read in file and just print out all headers
 	while IFS= read -r -u 3 line || [[ -n "$line" ]]; do
 		case $line in
 			\#*)
-				read -p "Headers: $line"
+				read -rp "Headers: $line"
 			        ;;
 		         *)
 				:
@@ -25,7 +25,7 @@ then # Then read in file and use awk to print from 3 input (header name) to next
 	echo ""
 	echo "You are reviewing $1"
 	echo ""
-	awk '/^#.*/{f=0} /^#.*'$3'/{f=1} f' $1 # awk begin and end check starts with the $3 with # in front to the next #
+	awk '/^#.*/{f=0} /^#.*'"$3"'/{f=1} f' "$1" # awk begin and end check starts with the $3 with # in front to the next 
 
 elif [ -f "$1" ] # lastly if no other input and the file exist 
 then
@@ -37,40 +37,40 @@ then
        while IFS= read -r -u 3 line || [[ -n "$line" ]]; do
                 case $line in
 		       \#*)
-		               read -p "> $line"
+		               read -rp "> $line "
 			       ;;
 
 		       \**)
-			       read -p ">> $line"
+			       read -rp ">> $line "
 			       ;;
 		       "    *"*)
-			       read -p ">>> $line"
+			       read -rp ">>> $line "
 			       ;;
                "        *"*)
-                   read -p ">>>> $line"
+                   read -rp ">>>> $line "
                    ;;
 		       1*)
-			       read -p "># $line"
+			       read -rp "># $line "
 			       ;;
 		       "    1"*)
-			       read -p ">># $line"
+			       read -rp ">># $line "
 			       ;;
                "        1"*)
-                   read -p ">>># $line"
+                   read -rp ">>># $line "
                    ;;
 		       -*)
-			       read -p "---"
+			       read -rp "--- "
 			       ;;
 		       '    ```'*)
-			       read -p "Code Block"
+			       read -rp "Code Block "
 			       ;;
 		       '    '**) #adding to read the code block must be at least 4 spaces (prints anything indented/4 spaces)
-			       read -p "Code> $line"
+			       read -rp "Code> $line "
 			       ;;
-		       ''*)
-			       read -p "~~~"
+		       ''*) #This pattern always overrides a later one on line 73
+			       read -rp "~~~ $line" #putting the line just in case something other than blank like is here
 			       ;;
-		       *)
+		       *) #Essentially this should next execute 
 			       echo "*Error Case*: $line"
 			       ;;
 	        esac
