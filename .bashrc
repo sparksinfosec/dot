@@ -1,3 +1,5 @@
+# Moving to dot repo to test some configs this will be the start of mine as a baseline 
+# Only additions are at the bottom set vi and aliases
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples

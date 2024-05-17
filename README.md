@@ -21,3 +21,9 @@
 ## Vim
 
 * .vimrc -> users home dir 
+
+## Bashrc 
+
+* Pulling from default ubuntu set with some modifications 
+* Including alias and set vi
+* Going to slowly start updating this to better customize environment (this is pretty basic as of now)
