@@ -21,6 +21,8 @@
 ## Vim
 
 * .vimrc -> users home dir 
+* Look at adding shellcheck plugin 
+* Can use entr also but worth diving into alittle deeper
 
 ## Bashrc 
 
