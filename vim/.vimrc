@@ -80,6 +80,7 @@ set showcmd
 
 set backspace=indent,eol,start
 
+let mapleader=","
 
 " disable arrow keys (vi muscle memory)
 noremap <up> :echoerr "Umm, use k instead"<CR>
