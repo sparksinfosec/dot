@@ -11,7 +11,6 @@ endif
 
 " look at guicursor settings to make the cursor more visible
 
-
 set cursorline
 
 set laststatus=2
