@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Only other thing I think might be needed is to take the read search term $3 and not have to have it exact match (maybe ask for input)
-
+# Add some color 
 
 if [[ "$2" == "list" && -f "$1" ]] #if second input of command is list plus the file exist (first input)
 then # Then we will read in file and just print out all headers 
