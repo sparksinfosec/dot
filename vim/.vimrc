@@ -21,6 +21,8 @@ set autoindent
 set tabstop=4 
 set softtabstop=4
 set expandtab
+" Nice for autoindent on cert languages
+set shiftwidth=4
 
 set noignorecase 
 

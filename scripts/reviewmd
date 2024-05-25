@@ -1,29 +1,34 @@
 #!/usr/bin/env bash
 
 # Only other thing I think might be needed is to take the read search term $3 and not have to have it exact match (maybe ask for input)
-# Add some color 
+
+magenta=$'\e[35m'
+red=$'\e[31m'
+green=$'\e[32m'
+yellow=$'\e[33m'
+cyan=$'\e[36m'
+reset=$'\e[0m'
+
 
 if [[ "$2" == "list" && -f "$1" ]] #if second input of command is list plus the file exist (first input)
 then # Then we will read in file and just print out all headers 
 	exec 3<"$1"
 	echo ""
-	echo "You are reviewing $1"
+	printf "${red}You are reviewing %s$reset\n" "${1}" # instead of echo -e 
 	echo ""
 	while IFS= read -r -u 3 line || [[ -n "$line" ]]; do
 		case $line in
 			\#*)
-				read -rp "Headers: $line"
+				read -rp "${green}Headers: $line${reset}"
 			        ;;
-		         *)
-				:
-				;;
+              *);;
 		esac
 	done
 elif [[ "$2" == "read" && -f "$1" ]] # if second input is read and file exist
 then # Then read in file and use awk to print from 3 input (header name) to next header
 	exec 3<"$1"
 	echo ""
-	echo "You are reviewing $1"
+    printf "${red}You are reviewing %s$reset\n" "${1}" # instead of echo -e 
 	echo ""
 	awk '/^#.*/{f=0} /^#.*'"$3"'/{f=1} f' "$1" # awk begin and end check starts with the $3 with # in front to the next 
 
@@ -32,46 +37,46 @@ then
 # read the file line by line with enter 
        exec 3<"$1"
        echo ""
-       echo "You are reviewing $1"
+       printf "${red}You are reviewing %s$reset\n" "${1}" # instead of echo -e 
        echo ""
        while IFS= read -r -u 3 line || [[ -n "$line" ]]; do
                 case $line in
 		       \#*)
-		               read -rp "> $line "
+		               read -rp "${green}> $line ${reset} "
 			       ;;
 
 		       \**)
-			       read -rp ">> $line "
+			       read -rp "${cyan}>> $line${reset} "
 			       ;;
 		       "    *"*)
-			       read -rp ">>> $line "
+			       read -rp "${cyan}>>> $line${reset} "
 			       ;;
                "        *"*)
-                   read -rp ">>>> $line "
+                   read -rp "${cyan}>>>> $line${reset} "
                    ;;
 		       1*)
-			       read -rp "># $line "
+			       read -rp "${yellow}># $line${reset} "
 			       ;;
 		       "    1"*)
-			       read -rp ">># $line "
+			       read -rp "${yellow}>># $line${reset} "
 			       ;;
                "        1"*)
-                   read -rp ">>># $line "
+                   read -rp "${yellow}>>># $line${reset} "
                    ;;
 		       -*)
 			       read -rp "--- "
 			       ;;
 		       '    ```'*)
-			       read -rp "Code Block "
+			       read -rp "${magenta}Code Block${reset} "
 			       ;;
 		       '    '**) #adding to read the code block must be at least 4 spaces (prints anything indented/4 spaces)
-			       read -rp "Code> $line "
+			       read -rp "${green}Code> $line${reset} "
 			       ;;
 		       ''*) #This pattern always overrides a later one on line 73
 			       read -rp "~~~ $line" #putting the line just in case something other than blank like is here
 			       ;;
 		       *) #Essentially this should next execute 
-			       echo "*Error Case*: $line"
+			       read -rp "*Error Case*: $line"
 			       ;;
 	        esac
        done 
