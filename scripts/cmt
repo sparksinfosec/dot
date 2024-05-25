@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Original credit to rwxrob github.com/rwxrob/dot
+# Great filter for vim (:.,.+10!cmt)
+# Or single line with !!cmt
+# Edited out previous comments due to vigorous passion of vi 
+ 
+while IFS= read -r line; do 
+  echo "${1:-#} $line"
+done
