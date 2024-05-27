@@ -1,128 +1,251 @@
-# Moving to dot repo to test some configs this will be the start of mine as a baseline 
-# Only additions are at the bottom set vi and aliases
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+#!bash
+# shellcheck disable=SC1090
 
-# If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;; # interactive
+*) return ;;
 esac
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
 
-# append to the history file, don't overwrite it
+# ---------------------- local utility functions ---------------------
+
+_have() { type "$1" &>/dev/null; }
+_source_if() { [[ -r "$1" ]] && source "$1"; }
+
+# ----------------------- environment variables ----------------------
+#                           (also see envx)
+
+export LANG=en_US.UTF-8 # assuming apt install language-pack-en done
+export USER="${USER:-$(whoami)}"
+export GITUSER="sparksinfosec" # $USER in a system that the user is the same name as my GH username
+export REPOS="$HOME/repos"
+export GHREPOS="$REPOS/github.com/$GITUSER"
+export DOTFILES="$GHREPOS/dot"
+export HELP_BROWSER=lynx
+export DESKTOP="$HOME/Desktop"
+export DOCUMENTS="$HOME/Documents"
+export DOWNLOADS="$HOME/Downloads"
+export SCRIPTS="$DOTFILES/scripts" # $HOME/scripts in most systems 
+export PUBLIC="$HOME/Public"
+export PRIVATE="$HOME/Private"
+export TERM=xterm-256color
+export HRULEWIDTH=73
+export EDITOR=vi
+export VISUAL=vi
+export EDITOR_PREFIX=vi
+export GOBIN="$HOME/.local/bin"
+export LESS="-FXR"
+export LESS_TERMCAP_mb="[35m" # magenta
+export LESS_TERMCAP_md="[33m" # yellow
+export LESS_TERMCAP_me=""      # "0m"
+export LESS_TERMCAP_se=""      # "0m"
+export LESS_TERMCAP_so="[34m" # blue
+export LESS_TERMCAP_ue=""      # "0m"
+export LESS_TERMCAP_us="[4m"  # underline
+
+[[ -d /.vim/spell ]] && export VIMSPELL=("$HOME/.vim/spell/*.add")
+
+# ------------------------------- pager ------------------------------
+
+if [[ -x /usr/bin/lesspipe ]]; then
+	export LESSOPEN="| /usr/bin/lesspipe %s"
+	export LESSCLOSE="/usr/bin/lesspipe %s %s"
+fi
+
+# ----------------------------- dircolors ----------------------------
+
+if _have dircolors; then
+	if [[ -r "$HOME/.dircolors" ]]; then
+		eval "$(dircolors -b "$HOME/.dircolors")"
+	else
+		eval "$(dircolors -b)"
+	fi
+fi
+
+# ------------------------------- path -------------------------------
+
+pathappend() {
+	declare arg
+	for arg in "$@"; do
+		test -d "$arg" || continue
+		PATH=${PATH//":$arg:"/:}
+		PATH=${PATH/#"$arg:"/}
+		PATH=${PATH/%":$arg"/}
+		export PATH="${PATH:+"$PATH:"}$arg"
+	done
+} && export -f pathappend
+
+pathprepend() {
+	for arg in "$@"; do
+		test -d "$arg" || continue
+		PATH=${PATH//:"$arg:"/:}
+		PATH=${PATH/#"$arg:"/}
+		PATH=${PATH/%":$arg"/}
+		export PATH="$arg${PATH:+":${PATH}"}"
+	done
+} && export -f pathprepend
+
+# remember last arg will be first in path
+pathprepend \
+	"$HOME/.local/bin" \
+	"$HOME/.local/go/bin" \
+	"$HOME/.nimble/bin" \
+	"$GHREPOS/cmd-"* \
+	/usr/local/go/bin \
+	/usr/local/opt/openjdk/bin \
+	/usr/local/bin \
+	"$SCRIPTS"
+
+pathappend \
+	/usr/local/opt/coreutils/libexec/gnubin \
+	'/mnt/c/Windows' \
+	'/mnt/c/Program Files (x86)/VMware/VMware Workstation' \
+	/mingw64/bin \
+	/usr/local/bin \
+	/usr/local/sbin \
+	/usr/local/games \
+	/usr/games \
+	/usr/sbin \
+	/usr/bin \
+	/snap/bin \
+	/sbin \
+	/bin
+
+# ------------------------------ cdpath ------------------------------
+
+export CDPATH=".:$GHREPOS:$DOTFILES:$REPOS:/media/$USER:$HOME"
+
+# ------------------------ bash shell options ------------------------
+
+# shopt is for BASHOPTS, set is for SHELLOPTS
+
+shopt -s checkwinsize # enables $COLUMNS and $ROWS
+shopt -s expand_aliases
+shopt -s globstar
+shopt -s dotglob
+shopt -s extglob
+
+#shopt -s nullglob # bug kills completion for some
+#set -o noclobber
+
+# -------------------------- stty annoyances -------------------------
+
+#stty stop undef # disable control-s accidental terminal stops
+stty -ixon # disable control-s/control-q tty flow control
+
+# ------------------------------ history -----------------------------
+
+export HISTCONTROL=ignoreboth
+export HISTSIZE=5000
+export HISTFILESIZE=10000
+
+set -o vi
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+# --------------------------- smart prompt ---------------------------
+#                 (keeping in bashrc for portability)
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+PROMPT_LONG=20
+PROMPT_MAX=95
+PROMPT_AT=@
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+__ps1() {
+	local P='$' dir="${PWD##*/}" B countme short long double \
+		r='\[\e[31m\]' g='\[\e[30m\]' h='\[\e[34m\]' \
+		u='\[\e[33m\]' p='\[\e[34m\]' w='\[\e[35m\]' \
+		b='\[\e[36m\]' x='\[\e[0m\]'
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+	[[ $EUID == 0 ]] && P='#' && u=$r && p=$u # root
+	[[ $PWD = / ]] && dir=/
+	[[ $PWD = "$HOME" ]] && dir='~'
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
+	B=$(git branch --show-current 2>/dev/null)
+	[[ $dir = "$B" ]] && B=.
+	countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
+	[[ $B == master || $B == main ]] && b="$r"
+	[[ -n "$B" ]] && B="$g($b$B$g)"
 
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-# force_color_prompt=yes
+	short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x "
+	long="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir$B\n$g╚ $p$P$x "
+	double="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir\n$g║ $B\n$g╚ $p$P$x "
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
+	if ((${#countme} > PROMPT_MAX)); then
+		PS1="$double"
+	elif ((${#countme} > PROMPT_LONG)); then
+		PS1="$long"
+	else
+		PS1="$short"
+	fi
+}
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+PROMPT_COMMAND="__ps1"
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+# ------------------------------ aliases -----------------------------
+#      (use exec scripts instead, which work from vim and subprocs)
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
-# Aliases 
-
+unalias -a
+alias ip='ip -c'
+alias '?'=duck
+alias '??'=gpt
+alias '???'=google
+alias dot='cd $DOTFILES'
+alias scripts='cd $SCRIPTS'
+alias ls='ls -h --color=auto'
+alias free='free -h'
+alias tree='tree -a'
+alias df='df -h'
+alias chmox='chmod u+x'
+alias diff='diff --color'
+alias temp='cd $(mktemp -d)'
+alias view='vi -R' # which is usually linked to vim
+alias c='printf "\e[H\e[2J"'
+alias neo="neo -D -c green3"
+alias more="less"
 alias path='echo -e "${PATH//:/\\n}"'
-alias ?='duck'
-alias ??='gpt'
-alias ???='google'
 
-set -o vi 
+_have vim && alias vi=vim
+
+# ----------------------------- functions ----------------------------
+
+# envx() {
+# 	local envfile="${1:-"$HOME/.env"}"
+# 	[[ ! -e "$envfile" ]] && echo "$envfile not found" && return 1
+# 	while IFS= read -r line; do
+# 		name=${line%%=*}
+# 		value=${line#*=}
+# 		[[ -z "${name}" || $name =~ ^# ]] && continue
+# 		export "$name"="$value"
+# 	done <"$envfile"
+# } && export -f envx
+
+# [[ -e "$HOME/.env" ]] && envx "$HOME/.env"
+
+clone() {
+	local repo="$1" user
+	local repo="${repo#https://github.com/}"
+	local repo="${repo#git@github.com:}"
+	if [[ $repo =~ / ]]; then
+		user="${repo%%/*}"
+	else
+		user="$GITUSER"
+		[[ -z "$user" ]] && user="$USER"
+	fi
+	local name="${repo##*/}"
+	local userd="$REPOS/github.com/$user"
+	local path="$userd/$name"
+	[[ -d "$path" ]] && cd "$path" && return
+	mkdir -p "$userd"
+	cd "$userd"
+	echo gh repo clone "$user/$name" -- --recurse-submodule
+	gh repo clone "$user/$name" -- --recurse-submodule
+	cd "$name"
+} && export -f clone
+# clone user/repo
+# clone repo (for something from my gh)
+
+# -------------------- personalized configuration --------------------
+
+# _source_if "$HOME/.bash_personal"
+# _source_if "$HOME/.bash_private"
+# _source_if "$HOME/.bash_work"

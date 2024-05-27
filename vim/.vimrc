@@ -8,6 +8,9 @@ if has("eval")
 	let skip_defaults_vim = 1 
 endif 
 
+" Set rule format 
+"set ruf=%30(%=%#LineNr#%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
+
 
 " look at guicursor settings to make the cursor more visible
 
