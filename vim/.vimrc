@@ -8,15 +8,12 @@ if has("eval")
 	let skip_defaults_vim = 1 
 endif 
 
-" Set rule format 
-"set ruf=%30(%=%#LineNr#%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
-
-
 " look at guicursor settings to make the cursor more visible
-
 set cursorline
 
+" for the ruf and showcmd formatting 
 set laststatus=2
+
 set nocompatible 
 
 set autoindent
@@ -106,6 +103,15 @@ Plug 'morhetz/gruvbox'
 call plug#end()
 colorscheme gruvbox
 endif
+
+" Rule format
+set ruf=%75(%=%#LineNr#%.50F\ [%{strlen(&ft)?&ft:'none'}]\ %l:%c\ %p%%%)
+
+" Start at last place you were editing
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal!     g'\"" | endif 
+
+" set status line color to blend into background and be grey
+hi StatusLine ctermfg=0 cterm=none ctermbg=NONE ctermfg=grey
 
 " Might not need the wrap! as the formating takes care of that 
 " set wrap!
