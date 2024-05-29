@@ -1,0 +1,4 @@
+#!/bin/sh
+
+test -z "$@"  && test -f ./README.md && exec glow -p ./README.md
+exec glow -p "$@"
