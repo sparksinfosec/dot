@@ -1,0 +1,4 @@
+#!/bin/sh 
+
+sudo apt install nmap lynx tmux python-is-python3 pip curl entr bash-completion net-tools libcurses-perl
+sudo cpan -I Term::Animation
