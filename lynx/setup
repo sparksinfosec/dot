@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Requires lynx script (and optional ? alias tied to duck)
+# Special thanks to rwxrob/dot twitch.tv/rwxrob
+
+mkdir ~/.config/ 2>/dev/null
+rm -rf ~/.config/lynx 2>/dev/null
+ln -s "$PWD" "$HOME/.config/lynx" # will this also link the setup and readme?
+ls -l ~/.config/lynx 

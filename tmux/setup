@@ -1,0 +1,5 @@
+#!/bin/sh
+
+test type tmux > /dev/null 2>&1 && echo "TMUX does not look to be installed skipping" && exit 1 
+
+ln -sf "$PWD/.tmux.conf" "$HOME/.tmux.conf"
