@@ -12,3 +12,8 @@ for i in vim lynx tmux; do
     cd $i && ./setup
     cd - 
 done
+
+# TODOs 
+# do you want to do the script?
+# setting up a loop to push all scripts to .local/bin and setting up symbolic links 
+# Where should that file live and what order should it be run
