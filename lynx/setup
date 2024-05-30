@@ -5,6 +5,7 @@
 
 mkdir ~/.config/ 2>/dev/null
 rm -rf ~/.config/lynx 2>/dev/null
+mkdir ~/.config/lynx 2>/dev/null
 ln -sf "$PWD/lynx.cfg" "$HOME/.config/lynx/lynx.cfg"
 ln -sf "$PWD/lynx.cfg" "$HOME/.config/lynx/lynx.lss"
 ls -l ~/.config/lynx 
