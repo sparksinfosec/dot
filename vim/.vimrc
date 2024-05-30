@@ -68,6 +68,8 @@ set hlsearch
 set incsearch
 set linebreak
 
+" disable search highlighting with Ctrl L
+nnoremap <C-L> :nohl<CR><C-L>
 
 set history=100
 
