@@ -185,6 +185,8 @@ PROMPT_COMMAND="__ps1"
 #      (use exec scripts instead, which work from vim and subprocs)
 
 unalias -a
+alias redobash='exec bash -l' # adding just for config for easy reload of bash 
+alias gittoken='cat $HOME/.gittoken' # just for a specific usecase on ubuntu server with misconfiged git 
 alias ip='ip -c'
 alias '?'=duck
 alias '??'=gpt
