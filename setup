@@ -6,14 +6,9 @@ ln -sf "$PWD/.dircolors" "$HOME/.dircolors"
 ln -sf "$PWD/.profile" "$HOME/.profile"
 ln -sf "$PWD/.profile" "$HOME/.bash_profile" # Not sure if needed
 ln -sf "$PWD/scripts" "$HOME/Scripts" 
-# Maybe set symbolic links from HOME/SCRIPTS to .local/bin?
 
-for i in vim lynx tmux; do 
-    cd $i && ./setup
+for i in vim lynx tmux scripts; do # should probably make sure scripts is always last in this list
+    cd $i && ./setup${i}
     cd - 
 done
 
-# TODOs 
-# do you want to do the script?
-# setting up a loop to push all scripts to .local/bin and setting up symbolic links 
-# Where should that file live and what order should it be run

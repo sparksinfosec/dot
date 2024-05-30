@@ -1,0 +1,10 @@
+#!/bin/sh
+
+targetdir="$HOME/.local/bin"
+mkdir -p "${targetdir}"
+ls -al "${targetdir}"
+for f in *; do
+    ln -sf "$PWD/${f}" "${targetdir}/${f}"
+    printf "Created Link from: $PWD/${f}" TO: "${targetdir}/${f} \n"
+
+done
