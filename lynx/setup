@@ -5,5 +5,6 @@
 
 mkdir ~/.config/ 2>/dev/null
 rm -rf ~/.config/lynx 2>/dev/null
-ln -s "$PWD" "$HOME/.config/lynx" # will this also link the setup and readme?
+ln -sf "$PWD/lynx.cfg" "$HOME/.config/lynx/lynx.cfg"
+ln -sf "$PWD/lynx.cfg" "$HOME/.config/lynx/lynx.lss"
 ls -l ~/.config/lynx 
