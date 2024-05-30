@@ -85,6 +85,10 @@ set backspace=indent,eol,start
 
 let mapleader=","
 
+" prevents truncated yanks, deletes, etc (might not be needed)
+set viminfo='20,<1000,s1000
+
+
 " disable arrow keys (vi muscle memory)
 noremap <up> :echoerr "Umm, use k instead"<CR>
 noremap <down> :echoerr "Umm, use j instead"<CR>
