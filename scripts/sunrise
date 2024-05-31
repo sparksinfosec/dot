@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# TO DO 
+# Need to grab the API results 
+# Need to cut the results and display the results 
+# Need to get the date for tommorrow (but make the input allowable for specific date)
+if [ $# -eq 0 ]; then
+    date=$(date --rfc-3339=date -d '+1 day')
+elif [ $# -eq 3 ]; then
+    date=${3}-${1}-${2}
+else
+    printf "Make sure to enter in date MM DD YYYY with spaces no quotes\n"
+    exit
+fi
+
+results=$(curl -s "https://api.sunrisesunset.io/json?lat=33.448376&lng=-112.074036&date=${date}")
+errorcheck=$( echo "$results" | cut -d':' -f3)
+error='"ERROR"}'
+
+if [ "$errorcheck" = "$error" ]; then
+    printf "ERROR invalid date format please use MM DD YYYY with spaces or quotes\n"
+    printf "Or leave arguments blank for tomorrows sunrise and sunset times\n"
+else
+    sunrise=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f2 | cut -d'"' -f4)
+    sunset=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f3 | cut -d'"' -f4)
+    printf "Try to look up from you computer every once in a while -Gordan Clark\n"
+    printf "\n"
+    printf "Sunrise and Sunset for: %s\n" "$date"
+    echo "----------------------------"
+    printf "Sunrise is at: %s\n" "$sunrise"
+    printf "\n"
+    printf "Sunset is at: %s\n" "$sunset"
+    echo "----------------------------"
+    printf "\n"
+fi
+
+# echo $results
+# echo $date
