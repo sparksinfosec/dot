@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # TO DO 
+# Need to add dawn and dusk 
 # Look at making it run based on your current location (or specify the location)
 
 if [[ $# -eq 0 ]]; then
