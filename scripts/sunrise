@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # TO DO 
 # Look at making it run based on your current location (or specify the location)
 
-if [ $# -eq 0 ]; then
+if [[ $# -eq 0 ]]; then
     date=$(date --rfc-3339=date -d '+17 hours') # Add 17 hours for AZ time vs UTC
-elif [ $# -eq 3 ]; then
+elif [[ $# -eq 3 ]]; then
     date=${3}-${1}-${2} # Format the date when entered in as args
 else
     printf "Make sure to enter in date MM DD YYYY with spaces no quotes\n"
@@ -16,14 +16,14 @@ results=$(curl -s "https://api.sunrisesunset.io/json?lat=33.448376&lng=-112.0740
 errorcheck=$( echo "$results" | cut -d':' -f3)
 error='"ERROR"}' # Based on invalid date from the api not sure what other errors are possible
 
-if [ "$errorcheck" = "$error" ]; then # check if the date is incorrect
+if [[ "$errorcheck" = "$error" ]]; then # check if the date is incorrect
     printf "\n"
     printf "ERROR invalid date format please use MM DD YYYY with spaces or quotes\n"
     printf "Or leave arguments blank for tomorrows sunrise and sunset times\n"
     printf "\n"
 else
-    firstlight=$( echo $results | cut -d'{' -f3 | cut -d',' -f4 | cut -d'"' -f4) #getting first light info 
-    lastlight=$( echo $results | cut -d'{' -f3 | cut -d',' -f5 | cut -d'"' -f4) # getting last light info
+    firstlight=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f4 | cut -d'"' -f4) #getting first light info 
+    lastlight=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f5 | cut -d'"' -f4) # getting last light info
     sunrise=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f2 | cut -d'"' -f4) # getting sunrise info 
     sunset=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f3 | cut -d'"' -f4) # getting sunset info
     printf "\n"
