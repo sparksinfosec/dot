@@ -13,7 +13,7 @@ else
 fi
 
 results=$(curl -s "https://api.sunrisesunset.io/json?lat=33.448376&lng=-112.074036&date=${date}") # Long and Lat is hard coded into url
-errorcheck=$( echo "$results" | cut -d':' -f3)
+errorcheck=$( echo "$results" | cut -d':' -f3) # maybe remove and just test against the results 
 error='"ERROR"}' # Based on invalid date from the api not sure what other errors are possible
 
 if [[ "$errorcheck" = "$error" ]]; then # check if the date is incorrect
