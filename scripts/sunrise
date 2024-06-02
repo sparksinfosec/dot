@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # TO DO 
-# Need to add dawn and dusk 
+# Maybe color 
 # Look at making it run based on your current location (or specify the location)
 
 if [[ $# -eq 0 ]]; then
@@ -14,10 +14,10 @@ else
 fi
 
 results=$(curl -s "https://api.sunrisesunset.io/json?lat=33.448376&lng=-112.074036&date=${date}") # Long and Lat is hard coded into url
-errorcheck=$( echo "$results" | cut -d':' -f3) # maybe remove and just test against the results 
-error='"ERROR"}' # Based on invalid date from the api not sure what other errors are possible
+# errorcheck=$( echo "$results" | cut -d':' -f3) # maybe remove and just test against the results 
+error='{"body":"Invalid date entered.","status":"ERROR"}'
 
-if [[ "$errorcheck" = "$error" ]]; then # check if the date is incorrect
+if [[ "$results" = "$error" ]]; then # check if the date is incorrect
     printf "\n"
     printf "ERROR invalid date format please use MM DD YYYY with spaces or quotes\n"
     printf "Or leave arguments blank for tomorrows sunrise and sunset times\n"
@@ -26,16 +26,20 @@ else
     firstlight=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f4 | cut -d'"' -f4) #getting first light info 
     lastlight=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f5 | cut -d'"' -f4) # getting last light info
     sunrise=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f2 | cut -d'"' -f4) # getting sunrise info 
+    dawn=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f6 | cut -d'"' -f4)
     sunset=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f3 | cut -d'"' -f4) # getting sunset info
+    dusk=$( echo "$results" | cut -d'{' -f3 | cut -d',' -f7 | cut -d'"' -f4) 
     printf "\n"
-    printf "Try to look up from you computer every once in a while -Gordan Clark\n"
+    printf "Try to look up from you computer every once in a while -Gordan Clark\n" # halt and catch fire
     printf "\n"
     printf "Sunrise and Sunset for: %s\n" "$date"
     echo "------------------------------"
     printf "First Light is at: %s\n" "$firstlight"
+    printf "Dawn at: %s\n" "$dawn"
     printf "Sunrise is at: %s\n" "$sunrise"
     printf "\n"
     printf "Sunset is at: %s\n" "$sunset"
+    printf "Dusk at: %s\n" "$dusk"
     printf "Last Light is at: %s\n" "$lastlight"
     echo "------------------------------"
     printf "\n"
