@@ -2,6 +2,9 @@
 # Credit RWXrob beginner boost and dot file
 # Requires mods charmbracelet/mods
 
+# Made changes but did not exclude the export of the custom token file 
+# Look at mods --settings and can modify the .yaml file directly with the Token?
+
 _have() { type "$1" &>/dev/null; }
 
 declare OPENAI_API_KEY
