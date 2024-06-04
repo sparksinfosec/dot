@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash 
 
-if [ -z "$(which vim)" -o -z "$(which vimtutor)" ]; then 
+if [[ -z "$(which vim)" || -z "$(which vimtutor)" ]]; then 
     echo "Does not look like full vim is installed"
 fi
 
 ln -sf "$PWD/.vimrc" "$HOME/.vimrc"
-mkdir "$HOME/.vim/" "$HOME/.vim/autoload"
+mkdir -p "$HOME/.vim/autoload"
 ln -sf "$PWD/.vim/autoload/plug.vim" "$HOME/.vim/autoload/plug.vim"
 
 
