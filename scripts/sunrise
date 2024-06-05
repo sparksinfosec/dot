@@ -5,7 +5,7 @@
 # Look at making it run based on your current location (or specify the location)
 
 if [[ $# -eq 0 ]]; then
-    date=$(date --rfc-3339=date -d '+17 hours') # Add 17 hours for AZ time 
+    date=$(date --rfc-3339=date -d '+17 hours') # Add 17 hours for AZ time based on UTC (think about other possible time zones?
 elif [[ $# -eq 3 ]]; then
     date=${3}-${1}-${2} # Format the date when entered in as args
 else
