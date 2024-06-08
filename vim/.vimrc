@@ -105,6 +105,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'rwxrob/vim-pandoc-syntax-simple'
 
 call plug#end()
 colorscheme gruvbox
