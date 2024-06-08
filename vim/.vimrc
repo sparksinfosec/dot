@@ -104,9 +104,12 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 
 call plug#begin('~/.vim/plugged')
 
+" Can use :PlugStatus to see if installed
 Plug 'morhetz/gruvbox'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'rwxrob/vim-pandoc-syntax-simple'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'rwxrob/vim-pandoc-syntax-simple'
+" Look deeper into pandoc seems to enable weird highlighting in some md vim
+" files
 
 call plug#end()
 colorscheme gruvbox
