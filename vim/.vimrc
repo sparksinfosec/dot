@@ -110,6 +110,7 @@ Plug 'morhetz/gruvbox'
 " Plug 'rwxrob/vim-pandoc-syntax-simple'
 " Look deeper into pandoc seems to enable weird highlighting in some md vim
 " files
+" Start with unix filters until pandoc plugin becomes needed
 
 call plug#end()
 colorscheme gruvbox
