@@ -1,0 +1,8 @@
+#!/usr/bin/env bash 
+
+# TO DO 
+# Need to convert inputed epoch timestamp and convert it to human readable 
+# Need to spit the current date/time out into a unix timestap
+# Need to take in a date (format?) and time and then conver to unix timestamp 
+
+
