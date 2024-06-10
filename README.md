@@ -8,6 +8,7 @@
 * Break down the different scripts 
 * Placement .local/bin
 * Note about mods for gpt 
+* Google and duck for lynx 
 
 ## Tmux 
 
