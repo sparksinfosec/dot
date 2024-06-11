@@ -4,9 +4,25 @@
 # Need to convert inputed epoch timestamp and convert it to human readable 
 # Need to spit the current date/time out into a unix timestap
 # Need to take in a date (format?) and time and then conver to unix timestamp 
-
-#date -d "06/10/2024 07:21:23" +"%s"
-#date --date=@1718004083
+if [[ $# -eq 1 ]]; then 
+    date --date=@"${1}"
+elif [[ $# -eq 0 ]]; then 
+    date +'%s'
+    echo 
+    printf "Common useage:\n"
+    printf "For unix to human conversion: unixtime epoch\n"
+    printf "For date to epoch: unixtime MM/DD/YYYY HH:MM:SS (24 Hour Time)\n"
+    echo
+elif [[ $# -eq 2 ]]; then 
+    date -d "${1} ${2}" +"%s"
+else
+    printf "Command not run\n"
+    printf "For unix to human conversion: unixtime epoch\n"
+    printf "For date to epoch: unixtime MM/DD/YYYY HH:MM:SS (24 Hour Time)\n"
+    echo
+fi
+# date -d "06/10/2024 07:21:23" +"%s"
+# date --date=@1718004083
 # Correct form of the date command from standard MM/DD/YY HH:MM:SS to epoch 
 # And from epoch to a date and time 
 # Does time zone matter hear tool will be used basically to get what date or time the epoch timestamp is?
