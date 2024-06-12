@@ -54,6 +54,12 @@ then
                "        *"*)
                    read -rp "${cyan}>>>> $line${reset} "
                    ;;
+               "            *"*)
+                   read -rp "${cyan}>>>>> $line${reset} "
+                   ;;
+               "            1"*)
+                   read -rp "${yellow}>>>># $line${reset} "
+                   ;;
 		       1*)
 			       read -rp "${yellow}># $line${reset} "
 			       ;;
