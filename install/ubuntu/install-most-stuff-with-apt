@@ -2,5 +2,5 @@
 
 # libcruses and cpan term:animation is for fishes 
 # Larger overhead but fun to try out script
-sudo apt install nmap lynx tmux python-is-python3 pip curl entr bash-completion net-tools libcurses-perl bash-completion
+sudo apt install nmap lynx tmux python-is-python3 pip curl entr bash-completion net-tools libcurses-perl bash-completion pandoc
 sudo cpan -I Term::Animation
