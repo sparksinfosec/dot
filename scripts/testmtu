@@ -1,0 +1,11 @@
+#!/usr/bin/env bash 
+
+# Take first and second variable as numbers and increament by 50 to ping yahoo
+# maybe test for a third arg and let the domain be passed?
+
+for i in `seq $1 50 $2`; do ping -c1 -s $i -M do yahoo.com; done
+
+# ping -c1 one time 
+# -s (for size)
+# -M for pmtudisc_option (do set the do not fragment bit)
+# Might want to throw a check that something is passed to (look at what happens when run and no args are passed)
