@@ -1,0 +1,11 @@
+#!/usr/bin/env bash 
+
+#TO DO
+# Need to take in the domain and pass a grep search term
+# Also need the default to be just the registrar if nothing is passed (that is what I use the tool the most for)
+
+whois "$1" | grep -i "$2"
+
+
+# whois sparksinfosec.com | grep -i "registrar"
+
