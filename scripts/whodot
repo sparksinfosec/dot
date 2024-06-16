@@ -1,23 +1,21 @@
 #!/usr/bin/env bash 
 
 #TO DO
-# Need to take in the domain and pass a grep search term
-# Also need the default to be just the registrar if nothing is passed (that is what I use the tool the most for)
 
-if command -v whois >/dev/null 2>&1 ; then
+if command -v whois >/dev/null 2>&1 ; then # quick check to see if whois is on the system
         echo ""
     else
         echo "It does not look like the whois command is on this system"
         exit
     fi
 
-if [[ "$2" == "full" ]]; then 
-    whois "$1"
+if [[ "$2" == "full" ]]; then # If domain is passed and second arg is full 
+    whois "$1" 
     echo ""
-elif [[ "$#" -eq 2 ]]; then 
+elif [[ "$#" -eq 2 ]]; then # if there are two args pass the second to grep
     whois "$1" | grep -i "$2"
     echo ""
-elif [[ "$#" -eq 1 ]]; then 
+elif [[ "$#" -eq 1 ]]; then # if only one arg (assuming domain) pull the registrar 
     whois "$1" | grep -i "registrar"
     echo ""
 else
@@ -25,9 +23,9 @@ else
     printf "try: whodot DOMAIN [grep_string]\n"
     printf "without grep string it will return registrar info\n"
     printf "whodot DOMAIN full (will return the full whois query)\n"
+    printf "can pass in the domain and the arg full to see full whois listing (same as whois DOMAIN)\n"
     echo ""
 fi
 
 
-# whois sparksinfosec.com | grep -i "registrar"
 
