@@ -4,7 +4,29 @@
 # Need to take in the domain and pass a grep search term
 # Also need the default to be just the registrar if nothing is passed (that is what I use the tool the most for)
 
-whois "$1" | grep -i "$2"
+if command -v whois >/dev/null 2>&1 ; then
+        echo ""
+    else
+        echo "It does not look like the whois command is on this system"
+        exit
+    fi
+
+if [[ "$2" == "full" ]]; then 
+    whois "$1"
+    echo ""
+elif [[ "$#" -eq 2 ]]; then 
+    whois "$1" | grep -i "$2"
+    echo ""
+elif [[ "$#" -eq 1 ]]; then 
+    whois "$1" | grep -i "registrar"
+    echo ""
+else
+    printf "Something went wrong\n"
+    printf "try: whodot DOMAIN [grep_string]\n"
+    printf "without grep string it will return registrar info\n"
+    printf "whodot DOMAIN full (will return the full whois query)\n"
+    echo ""
+fi
 
 
 # whois sparksinfosec.com | grep -i "registrar"
