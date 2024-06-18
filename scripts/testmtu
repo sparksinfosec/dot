@@ -2,6 +2,7 @@
 
 # Take first and second variable as numbers and increament by 50 to ping yahoo
 # maybe test for a third arg and let the domain be passed?
+# maybe turn into a function and then the conditional stands alone?
 
 for i in `seq $1 50 $2`; do ping -c1 -s $i -M do yahoo.com; done
 
