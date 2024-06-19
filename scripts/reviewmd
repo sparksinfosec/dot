@@ -10,6 +10,13 @@ cyan=$'\e[36m'
 reset=$'\e[0m'
 
 # Possible to count line numbers and include them in output
+# Need to think about the format that makes most sense beginning of line or end?
+# Probably beginning 
+# TODO  Need to add the increment count to each one also (not current echoing it)
+# count/linecount (beginning of each line of output?
+linecount=$(wc -l "$1" | awk '{print $1}')
+
+# $echo $linecount
 
 if [[ "$2" == "list" && -f "$1" ]] #if second input of command is list plus the file exist (first input)
 then # Then we will read in file and just print out all headers 
@@ -40,10 +47,12 @@ then
        echo ""
        printf "${red}You are reviewing %s$reset\n" "${1}" # instead of echo -e 
        echo ""
+       count=0 # Where should you put this (beginning or end of line?
        while IFS= read -r -u 3 line || [[ -n "$line" ]]; do
                 case $line in
 		       \#*)
 		               read -rp "${green}> $line ${reset} "
+                       ((count++))
 			       ;;
 
 		       \**)
