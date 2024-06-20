@@ -9,9 +9,9 @@ yellow=$'\e[33m'
 cyan=$'\e[36m'
 reset=$'\e[0m'
 
-# count/linecount (beginning of each line of output? Do we really want to line count showing every time (is count enough)
-# Display total lines at the beginning and then just use count at the beginning of the line?
-# Maybe all one color too?
+# TO DO 
+# Display total lines at the beginning and then just use count at the beginning of the line
+# Make it white and one color 
 
 linecount=$(wc -l "$1" | awk '{print $1}')
 # $echo $linecount
