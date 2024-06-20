@@ -9,13 +9,11 @@ yellow=$'\e[33m'
 cyan=$'\e[36m'
 reset=$'\e[0m'
 
-# Possible to count line numbers and include them in output
-# Need to think about the format that makes most sense beginning of line or end?
-# Probably beginning 
-# TODO  Need to add the increment count to each one also (not current echoing it)
-# count/linecount (beginning of each line of output?
-linecount=$(wc -l "$1" | awk '{print $1}')
+# count/linecount (beginning of each line of output? Do we really want to line count showing every time (is count enough)
+# Display total lines at the beginning and then just use count at the beginning of the line?
+# Maybe all one color too?
 
+linecount=$(wc -l "$1" | awk '{print $1}')
 # $echo $linecount
 
 if [[ "$2" == "list" && -f "$1" ]] #if second input of command is list plus the file exist (first input)
@@ -46,53 +44,66 @@ then
        exec 3<"$1"
        echo ""
        printf "${red}You are reviewing %s$reset\n" "${1}" # instead of echo -e 
+       printf "${red}$linecount total lines\n ${reset}"
        echo ""
-       count=0 # Where should you put this (beginning or end of line?
+       count=0
        while IFS= read -r -u 3 line || [[ -n "$line" ]]; do
                 case $line in
 		       \#*)
-		               read -rp "${green}> $line ${reset} "
+		               read -rp "${green}${count}/${linecount} > $line ${reset} "
                        ((count++))
 			       ;;
-
 		       \**)
-			       read -rp "${cyan}>> $line${reset} "
+			       read -rp "${cyan}${count}/${linecount} >> $line${reset} "
+                   ((count++))
 			       ;;
 		       "    *"*) # One indent *
-			       read -rp "${cyan}>>> $line${reset} "
+			       read -rp "${cyan}${count}/${linecount} >>> $line${reset} "
+                   ((count++))
 			       ;;
                "        *"*) #two level indent *
-                   read -rp "${cyan}>>>> $line${reset} "
+                   read -rp "${cyan}${count}/${linecount} >>>> $line${reset} "
+                   ((count++))
                    ;;
                "            *"*) # * Third level indent this is the max (not sure if supported everywhere)
-                   read -rp "${cyan}>>>>> $line${reset} "
+                   read -rp "${cyan}${count}/${linecount} >>>>> $line${reset} "
+                   ((count++))
                    ;;
                "            1"*)
-                   read -rp "${yellow}>>>># $line${reset} "
+                   read -rp "${yellow}${count}/${linecount} >>>># $line${reset} "
+                   ((count++))
                    ;;
 		       1*)
-			       read -rp "${yellow}># $line${reset} "
+			       read -rp "${yellow}${count}/${linecount} ># $line${reset} "
+                   ((count++))
 			       ;;
 		       "    1"*)
-			       read -rp "${yellow}>># $line${reset} "
+			       read -rp "${yellow}${count}/${linecount} >># $line${reset} "
+                   ((count++))
 			       ;;
                "        1"*)
-                   read -rp "${yellow}>>># $line${reset} "
+                   read -rp "${yellow}${count}/${linecount} >>># $line${reset} "
+                   ((count++))
                    ;;
 		       -*)
-			       read -rp "--- "
+			       read -rp "${count}/${linecount} --- "
+                   ((count++))
 			       ;;
 		       '    ```'*)
-			       read -rp "${magenta}Code Block${reset} "
+			       read -rp "${magenta}${count}/${linecount} Code Block${reset} "
+                   ((count++))
 			       ;;
 		       '    '**) #adding to read the code block must be at least 4 spaces (prints anything indented/4 spaces)
-			       read -rp "${green}Code> $line${reset} "
+			       read -rp "${green}${count}/${linecount} Code> $line${reset} "
+                   ((count++))
 			       ;;
 		       ''*) #This pattern always overrides a later one on line 73
-			       read -rp "~~~ $line" #putting the line just in case something other than blank like is here
+			       read -rp "${count}/${linecount} ~~~ $line" #putting the line just in case something other than blank like is here
+                   ((count++))
 			       ;;
 		       *) #Essentially this should next execute 
-			       read -rp "*Error Case*: $line"
+			       read -rp "${count}/${linecount} *Error Case*: $line"
+                   ((count++))
 			       ;;
 	        esac
        done 
