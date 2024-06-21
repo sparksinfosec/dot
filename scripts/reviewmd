@@ -50,59 +50,59 @@ then
        while IFS= read -r -u 3 line || [[ -n "$line" ]]; do
                 case $line in
 		       \#*)
-		               read -rp "${green}${count}/${linecount} > $line ${reset} "
+		               read -rp "${count}${green} > $line ${reset} "
                        ((count++))
 			       ;;
 		       \**)
-			       read -rp "${cyan}${count}/${linecount} >> $line${reset} "
+			       read -rp "${count}${cyan} >> $line${reset} "
                    ((count++))
 			       ;;
 		       "    *"*) # One indent *
-			       read -rp "${cyan}${count}/${linecount} >>> $line${reset} "
+			       read -rp "${count}${cyan} >>> $line${reset} "
                    ((count++))
 			       ;;
                "        *"*) #two level indent *
-                   read -rp "${cyan}${count}/${linecount} >>>> $line${reset} "
+                   read -rp "${count}${cyan} >>>> $line${reset} "
                    ((count++))
                    ;;
                "            *"*) # * Third level indent this is the max (not sure if supported everywhere)
-                   read -rp "${cyan}${count}/${linecount} >>>>> $line${reset} "
+                   read -rp "${count}${cyan} >>>>> $line${reset} "
                    ((count++))
                    ;;
                "            1"*)
-                   read -rp "${yellow}${count}/${linecount} >>>># $line${reset} "
+                   read -rp "${count}${yellow} >>>># $line${reset} "
                    ((count++))
                    ;;
 		       1*)
-			       read -rp "${yellow}${count}/${linecount} ># $line${reset} "
+			       read -rp "${count}${yellow} ># $line${reset} "
                    ((count++))
 			       ;;
 		       "    1"*)
-			       read -rp "${yellow}${count}/${linecount} >># $line${reset} "
+			       read -rp "${count}${yellow} >># $line${reset} "
                    ((count++))
 			       ;;
                "        1"*)
-                   read -rp "${yellow}${count}/${linecount} >>># $line${reset} "
+                   read -rp "${count}${yellow} >>># $line${reset} "
                    ((count++))
                    ;;
 		       -*)
-			       read -rp "${count}/${linecount} --- "
+			       read -rp "${count} --- "
                    ((count++))
 			       ;;
 		       '    ```'*)
-			       read -rp "${magenta}${count}/${linecount} Code Block${reset} "
+			       read -rp "${count}${magenta} Code Block${reset} "
                    ((count++))
 			       ;;
 		       '    '**) #adding to read the code block must be at least 4 spaces (prints anything indented/4 spaces)
-			       read -rp "${green}${count}/${linecount} Code> $line${reset} "
+			       read -rp "${count}${green} Code> $line${reset} "
                    ((count++))
 			       ;;
 		       ''*) #This pattern always overrides a later one on line 73
-			       read -rp "${count}/${linecount} ~~~ $line" #putting the line just in case something other than blank like is here
+			       read -rp "${count} ~~~ $line" #putting the line just in case something other than blank like is here
                    ((count++))
 			       ;;
 		       *) #Essentially this should next execute 
-			       read -rp "${count}/${linecount} *Error Case*: $line"
+			       read -rp "${count} *Error Case*: $line"
                    ((count++))
 			       ;;
 	        esac
