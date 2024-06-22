@@ -9,12 +9,8 @@ yellow=$'\e[33m'
 cyan=$'\e[36m'
 reset=$'\e[0m'
 
-# TO DO 
-# Display total lines at the beginning and then just use count at the beginning of the line
-# Make it white and one color 
 
 linecount=$(wc -l "$1" | awk '{print $1}')
-# $echo $linecount
 
 if [[ "$2" == "list" && -f "$1" ]] #if second input of command is list plus the file exist (first input)
 then # Then we will read in file and just print out all headers 
