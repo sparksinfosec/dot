@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# Only other thing I think might be needed is to take the read search term $3 and not have to have it exact match (maybe ask for input)
+# Only other thing I think might be needed is to take the read search term $3 and not have to have it exact match 
+# This might mean we have to modify awk statement or grep -i
+
 
 magenta=$'\e[35m'
 red=$'\e[31m'
