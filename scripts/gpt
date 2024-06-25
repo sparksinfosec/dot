@@ -11,6 +11,7 @@ declare OPENAI_API_KEY
 OPENAI_API_KEY="$(head -1 "$HOME/.config/gpt/token")"
 export OPENAI_API_KEY
 
+# Look at maybe writing the output to screen and maybe a file for backup/review
 ! _have mods && echo "requires charmbracelet/mods" && exit 1
 #    mods "$*"
     mods --status-text "Ummm" "$*"
