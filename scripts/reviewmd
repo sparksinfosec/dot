@@ -3,6 +3,7 @@
 # Only other thing I think might be needed is to take the read search term $3 and not have to have it exact match 
 # This might mean we have to modify awk statement or grep -i
 
+# NOTE: Only support 3 levels of indents on ordered and unorder list currently
 
 magenta=$'\e[35m'
 red=$'\e[31m'
