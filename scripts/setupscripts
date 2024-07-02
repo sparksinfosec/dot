@@ -1,10 +1,12 @@
 #!/bin/sh
 
-targetdir="$HOME/.local/bin"
+# maybe a check before it actually runs to make sure its not run on/from incorrect dir
+
+targetdir="$HOME/.local/bin" # changed based on the system or final location of the soft links
 mkdir -p "${targetdir}"
 ls -al "${targetdir}"
 for f in *; do
-    ln -sf "$PWD/${f}" "${targetdir}/${f}"
+    ln -sf "$PWD/${f}" "${targetdir}/${f}" #needs to be run from the scripts dir in the dot file 
     printf "Created Link from: $PWD/${f}" TO: "${targetdir}/${f} \n"
 
 done
