@@ -1,6 +1,6 @@
 #!/usr/bin/env bash 
 
-#TO DO
+# Look into checking the domain as well (strip to the root domain on all cases)
 
 if command -v whois >/dev/null 2>&1 ; then # quick check to see if whois is on the system
         echo ""
@@ -18,7 +18,7 @@ elif [[ "$#" -eq 2 ]]; then # if there are two args pass the second to grep
 elif [[ "$#" -eq 1 ]]; then # if only one arg (assuming domain) pull the registrar 
     whois "$1" | grep -i "registrar"
     echo ""
-else
+else # Should only run if 0 or 3 or more args are passed
     printf "Something went wrong\n"
     printf "try: whodot DOMAIN [grep_string]\n"
     printf "without grep string it will return registrar info\n"
