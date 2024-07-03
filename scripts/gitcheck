@@ -1,5 +1,13 @@
 #!/usr/bin/env bash 
-
+##################################################################
+# Purpose: Run against group of dirs and do git pull or git status
+# Date: 07/02/2024
+# Author: Stephen Sparks
+# Revisions:
+#################################################################
+# TODOs 
+# Need to allow git status vs git pull (should pull be default)
+# Maybe a check to make sure that you are running it in the right dir/area
 # run on directories that contain directories that are git repos 
 
-for i in *; do cd $i; git status cd ..;done 
+for i in *; do cd $i; git status; cd ..;done 
