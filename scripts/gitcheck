@@ -1,0 +1,5 @@
+#!/usr/bin/env bash 
+
+# run on directories that contain directories that are git repos 
+
+for i in *; do cd $i; git status cd ..;done 
