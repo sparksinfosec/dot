@@ -10,5 +10,23 @@
 # Maybe a check to make sure that you are running it in the right dir/area
 # add alittle color for the cd break it up alittle better
 # run on directories that contain directories that are git repos 
+# for i in *; do cd $i; git status; echo ""; cd ..;done 
 
-for i in *; do cd $i; git status; echo ""; cd ..;done 
+gitrun(){
+    local input=$1
+    for i in *; do 
+        cd "$i"
+        git "$input"
+        echo ""
+        cd ..
+    done
+}
+
+if [[ $1 == "pull" ]]; then
+    gitrun "pull"
+elif [[ $1 == "status" ]]; then 
+    gitrun "status"
+else
+    gitrun "status"
+fi
+
