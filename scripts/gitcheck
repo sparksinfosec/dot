@@ -15,7 +15,7 @@
 gitrun(){
     local input=$1
     for i in *; do 
-        cd "$i"
+        cd "$i" || { echo "cd failed"; exit 1; }
         git "$input"
         echo ""
         cd ..
@@ -24,9 +24,9 @@ gitrun(){
 
 if [[ $1 == "pull" ]]; then
     gitrun "pull"
-elif [[ $1 == "status" ]]; then 
+elif [[ $1 == "status" ]]; then # Add a OR statment to check for no options passed
     gitrun "status"
-else
+else # Else should be an error that explains how to use the gitcheck pull/status
     gitrun "status"
 fi
 
