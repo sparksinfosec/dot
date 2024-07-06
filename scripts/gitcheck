@@ -6,11 +6,20 @@
 # Revisions:
 #################################################################
 # TODOs 
-# Need to allow git status vs git pull (should pull be default)
 # Maybe a check to make sure that you are running it in the right dir/area
 # add alittle color for the cd break it up alittle better
 # run on directories that contain directories that are git repos 
 # for i in *; do cd $i; git status; echo ""; cd ..;done 
+
+black=$'\e[30m'
+red=$'\e[31m'
+green=$'\e[32m'
+yellow=$'\e[33m'
+blue=$'\e[34m'
+magenta=$'\e[35m'
+cyan=$'\e[36m'
+white=$'\e[37m'
+reset=$'\e[0m'
 
 gitrun(){
     local input=$1
