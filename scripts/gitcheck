@@ -28,7 +28,7 @@ gitrun(){
         cd "$i" || { echo "cd failed"; exit 1; } # Should check and fail against a none dir
         git "$input"
         echo ""
-        cd ..
+        cd .. # do we need a pwd?
     done
 }
 
