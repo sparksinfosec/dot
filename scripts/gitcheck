@@ -12,6 +12,7 @@
 # for i in *; do cd $i; git status; echo ""; cd ..;done 
 # Format the output look at print the pwd, status or pull together colored and with proper spacing 
 
+
 black=$'\e[30m'
 red=$'\e[31m'
 green=$'\e[32m'
