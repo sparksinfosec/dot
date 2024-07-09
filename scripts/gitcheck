@@ -11,7 +11,7 @@
 # run on directories that contain directories that are git repos 
 # for i in *; do cd $i; git status; echo ""; cd ..;done 
 # Format the output look at print the pwd, status or pull together colored and with proper spacing 
-
+# Maybe add a sleep and time out the git status the same way pull does
 
 black=$'\e[30m'
 red=$'\e[31m'

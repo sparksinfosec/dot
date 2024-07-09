@@ -4,6 +4,9 @@
 # This might mean we have to modify awk statement or grep -i
 
 # NOTE: Only support 3 levels of indents on ordered and unorder list currently
+# Maybe look at better formatting 
+# Now that line numbers are included the digits throw off the foramt abit
+# Possible way to clear screen or keep at top?
 
 magenta=$'\e[35m'
 red=$'\e[31m'
