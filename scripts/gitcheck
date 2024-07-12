@@ -11,6 +11,13 @@
 # run on directories that contain directories that are git repos 
 # for i in *; do cd $i; git status; echo ""; cd ..;done 
 # Maybe add a sleep and time out the git status the same way pull does
+# Proper error checking (what if there is a merge conflict on a pull)
+
+# Proper check should be:
+# gitcheck (defaults to status)
+# gitcheck pull (for pull)
+# gitcheck status (for status)
+# git any_arg (for the elsestatement should only run if improper arg is passed)
 
 black=$'\e[30m'
 red=$'\e[31m'
