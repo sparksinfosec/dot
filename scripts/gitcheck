@@ -10,7 +10,6 @@
 # add alittle color for the cd break it up alittle better
 # run on directories that contain directories that are git repos 
 # for i in *; do cd $i; git status; echo ""; cd ..;done 
-# Format the output look at print the pwd, status or pull together colored and with proper spacing 
 # Maybe add a sleep and time out the git status the same way pull does
 
 black=$'\e[30m'
@@ -35,9 +34,9 @@ gitrun(){
 
 if [[ $1 == "pull" ]]; then
     gitrun "pull"
-elif [[ $1 == "status" ]]; then # Add a OR statment to check for no options passed
+elif [[ $1 == "status" ]] || [[ $# = 0 ]] ; then # run with status or no args passed 
     gitrun "status"
 else # Else should be an error that explains how to use the gitcheck pull/status
-    gitrun "status"
+    printf "ELSE RUN\n"
 fi
 
