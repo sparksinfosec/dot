@@ -37,6 +37,6 @@ if [[ $1 == "pull" ]]; then
 elif [[ $1 == "status" ]] || [[ $# = 0 ]] ; then # run with status or no args passed 
     gitrun "status"
 else # Else should be an error that explains how to use the gitcheck pull/status
-    printf "ELSE RUN\n"
+    printf "${red}Run with wrong argument passed\nTry gitcheck status or pull (or run without arg for default status${reset}\n"
 fi
 
