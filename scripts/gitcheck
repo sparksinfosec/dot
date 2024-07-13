@@ -29,6 +29,8 @@ cyan=$'\e[36m'
 white=$'\e[37m'
 reset=$'\e[0m'
 
+# Need a way to space out the git status messages so we can see each repo one at a time 
+# goes too fast and if there are boat load of repos screen space is a issue
 gitrun(){
     local input=$1
     for i in *; do 
