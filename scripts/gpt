@@ -15,6 +15,12 @@ export OPENAI_API_KEY
 #    mods "$*"
     mods --status-text "Ummm" "$*"
 
+# Maybe look at an if statment that looks for specific list or show keywords 
+# ?? show hash (run mods --show hash
+# ?? list (runs mods --list)
+# Else we run the gpt query
+# Might be easier than writing to a file tee screws up the output formatting
+
 # Mods saves the convos like git 
 # mods --list (shows all)
 # mods --show hash (shows the specific convo)
