@@ -33,7 +33,7 @@ reset=$'\e[0m'
 # goes too fast and if there are boat load of repos screen space is a issue
 gitrun(){
     local input=$1
-    for i in *; do 
+    for i in *; do # better way to for loop this for i in (ls .) maybe help check the dir before running 
         cd "$i" || { echo "cd failed"; exit 1; } # Should check and fail against a none dir
         git "$input"
         echo ""
