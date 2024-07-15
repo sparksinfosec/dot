@@ -16,6 +16,7 @@ export OPENAI_API_KEY
     mods --status-text "Ummm" "$*"
 
 # Maybe look at an if statment that looks for specific list or show keywords 
+# might work well as a function since we are essentially returning the arg for the mod command 
 # ?? show hash (run mods --show hash
 # ?? list (runs mods --list)
 # Else we run the gpt query
