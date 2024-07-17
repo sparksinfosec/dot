@@ -13,17 +13,20 @@ export OPENAI_API_KEY
 
 ! _have mods && echo "requires charmbracelet/mods" && exit 1
 #    mods "$*"
-    mods --status-text "Ummm" "$*"
+if [[ "$1" == "list" ]]; then # if first arg is list then run --list on mods
+    mods --list 
+elif [[ "$1" == "show" ]]; then # if show and hash is passed run mod --show with hash
+    mods --show "$2"
+else
+    mods --status-text "Ummm" "$*" ## OG Line that runs 
+fi
 
-# Maybe look at an if statment that looks for specific list or show keywords 
-# might work well as a function since we are essentially returning the arg for the mod command 
 # ?? show hash (run mods --show hash
 # ?? list (runs mods --list)
-# Else we run the gpt query
-# Might be easier than writing to a file tee screws up the output formatting
 
-# Mods saves the convos like git 
 # mods --list (shows all)
 # mods --show hash (shows the specific convo)
-# maybe mixes those in here
-# Don't totally over complicate
+# TO DOs 
+# look at --contiune (think this lets you add on top of a response to generate or details)
+# Note this works well right now however if you use ?? list or ?? show + additional prompt it will not work 
+# Maybe look at a check that looks to see if only show or only list is passed vs a longer string/query
