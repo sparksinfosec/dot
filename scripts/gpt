@@ -28,5 +28,7 @@ fi
 # mods --show hash (shows the specific convo)
 # TO DOs 
 # look at --contiune (think this lets you add on top of a response to generate or details)
+# --continue-last (might be harder since you might have to add additional question prompts 
+# first arg = contiune then take the rest of the args and pass them?
 # Note this works well right now however if you use ?? list or ?? show + additional prompt it will not work 
 # Maybe look at a check that looks to see if only show or only list is passed vs a longer string/query
