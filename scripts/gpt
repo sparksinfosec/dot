@@ -20,6 +20,7 @@ elif [[ "$1" == "show" ]]; then # if show and hash is passed run mod --show with
 else
     mods --status-text "Ummm" "$*" ## OG Line that runs 
 fi
+# Note maybe pass the entire arg to mod and then just prompt for -c hash or --show to pass to mods 
 
 # Looks to be a short hand for list and other might be more useful to pass -l instead of just list as an arg to ??
 # ?? show hash (run mods --show hash
