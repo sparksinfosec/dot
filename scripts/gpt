@@ -12,26 +12,24 @@ OPENAI_API_KEY="$(head -1 "$HOME/.config/gpt/token")"
 export OPENAI_API_KEY
 
 ! _have mods && echo "requires charmbracelet/mods" && exit 1
-    mods "$*"
-#if [[ "$1" == "list" ]]; then # if first arg is list then run --list on mods
-#    mods --list 
-#elif [[ "$1" == "show" ]]; then # if show and hash is passed run mod --show with hash
-#    mods --show "$2"
-#else
-#    mods --status-text "Ummm" "$*" ## OG Line that runs 
-#fi
-# Note maybe pass the entire arg to mod and then just prompt for -c hash or --show to pass to mods 
+#    mods "$*" # problem is show does not pass the hash or continue 
+if [[ "$1" == "list" ]]; then # if first arg is list then run --list on mods
+    mods --list 
+elif [[ "$1" == "show" ]]; then # if show and hash is passed run mod --show with hash
+    mods --show "$2"
+elif [[ "$1" == "cont" ]]; then 
+    shift #remove the cont arg
+    hash="$1" #save the hash
+    shift # remove the hash
+    mods --continue "$hash" "$*" # pass the hash and the rest of the prompt to continue 
+else
+    mods --status-text "Ummm" "$*" ## OG Line that runs 
+fi
 
+# Do we need to have a error to show proper useage?
 # Looks to be a short hand for list and other might be more useful to pass -l instead of just list as an arg to ??
 # ?? show hash (run mods --show hash
 # ?? list (runs mods --list)
 
 # mods --list (shows all)
 # mods --show hash (shows the specific convo)
-# TO DOs 
-# look at --contiune (think this lets you add on top of a response to generate or details)
-# --continue-last (might be harder since you might have to add additional question prompts 
-# first arg = contiune then take the rest of the args and pass them? (note continue looks to need a hash)
-# Then the prompt might be tricky 
-# Note this works well right now however if you use ?? list or ?? show + additional prompt it will not work 
-# Maybe look at a check that looks to see if only show or only list is passed vs a longer string/query
