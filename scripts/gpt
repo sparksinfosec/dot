@@ -12,14 +12,14 @@ OPENAI_API_KEY="$(head -1 "$HOME/.config/gpt/token")"
 export OPENAI_API_KEY
 
 ! _have mods && echo "requires charmbracelet/mods" && exit 1
-#    mods "$*"
-if [[ "$1" == "list" ]]; then # if first arg is list then run --list on mods
-    mods --list 
-elif [[ "$1" == "show" ]]; then # if show and hash is passed run mod --show with hash
-    mods --show "$2"
-else
-    mods --status-text "Ummm" "$*" ## OG Line that runs 
-fi
+    mods "$*"
+#if [[ "$1" == "list" ]]; then # if first arg is list then run --list on mods
+#    mods --list 
+#elif [[ "$1" == "show" ]]; then # if show and hash is passed run mod --show with hash
+#    mods --show "$2"
+#else
+#    mods --status-text "Ummm" "$*" ## OG Line that runs 
+#fi
 # Note maybe pass the entire arg to mod and then just prompt for -c hash or --show to pass to mods 
 
 # Looks to be a short hand for list and other might be more useful to pass -l instead of just list as an arg to ??
