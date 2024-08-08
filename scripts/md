@@ -1,4 +1,5 @@
 #!/bin/sh
-
+# Requires glow and for alittle better display of md files 
+# Using reviewmd script more than this one 
 test -z "$@"  && test -f ./README.md && exec glow -p ./README.md
 exec glow -p "$@"
