@@ -17,7 +17,7 @@ _source_if() { [[ -r "$1" ]] && source "$1"; }
 
 export LANG=en_US.UTF-8 # assuming apt install language-pack-en done
 export USER="${USER:-$(whoami)}"
-export GITUSER="sparksinfosec" # $USER in a system that the user is the same name as my GH username
+export GITUSER="sparksinfosec" # $USER usually (set for local config) removed or modified in other installs
 export REPOS="$HOME/repos" # upper vs lower Repos dir
 export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$GHREPOS/dot"
@@ -187,7 +187,7 @@ PROMPT_COMMAND="__ps1"
 unalias -a
 alias ports='less /etc/services'
 alias redobash='exec bash -l' # adding just for config for easy reload of bash 
-alias gittoken='cat $HOME/.gittoken' # just for a specific usecase on ubuntu server with misconfiged git 
+alias gittoken='cat $HOME/.gittoken' # Local config only (removed on broader installs)
 alias ip='ip -c'
 alias '?'=duck
 alias '??'=gpt
