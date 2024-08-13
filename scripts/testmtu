@@ -1,6 +1,8 @@
 #!/usr/bin/env bash 
 
+# Make sure to throw an errow if a number is not passed and show proper usage (as of now)
 # Take first and second variable as numbers and increament by 50 to ping yahoo
+# Break this up and make it more functional rather than a simple one liner
 # maybe test for a third arg and let the domain be passed?
 # maybe turn into a function and then the conditional stands alone?
 
