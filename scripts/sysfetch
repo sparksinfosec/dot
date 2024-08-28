@@ -1,0 +1,16 @@
+#!/usr/bin/env bash 
+
+# Script to quickly grab system information
+# Include: 
+# HOSTNAME
+# CPU info 
+# uptime
+# Hardware info 
+# Kernel info 
+# Maybe number of kernel files in boot 
+# Number of packages? 
+# RAM and disk info 
+# swap info 
+# Distro 
+# virt info 
+# maybe netwwork info
