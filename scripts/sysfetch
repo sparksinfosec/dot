@@ -14,3 +14,9 @@
 # Distro 
 # virt info 
 # maybe netwwork info
+
+hostname(){ 
+    local hostname
+
+    hostname="$(hostnamectl | grep hostname | cut -d ':' -f 2)"
+} 
