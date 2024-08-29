@@ -26,6 +26,6 @@ _uptime() {
 hostname 
 _uptime 
 
-printf "\n%s\n" \
+printf "%s\n" \
     "$hostname" \
     "$uptime" \ 
