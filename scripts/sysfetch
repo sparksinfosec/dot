@@ -15,17 +15,30 @@
 # virt info 
 # maybe netwwork info
 
-hostname() { 
+_hostname() { 
     hostname="$(hostnamectl | grep hostname | awk '{print $3}')"
 } 
+
+_architecture() {
+    architecture="$(uname -m)"
+}
+
+_cpu_count() {
+    cpuCount="$(cat /proc/cpuinfo | grep -i processor | wc -l)"
+}
 
 _uptime() {
     uptime="System $(uptime --pretty)"
 }
 
-hostname 
+
+_hostname 
 _uptime 
+_architecture
+_cpu_count 
 
 printf "%s\n" \
     "$hostname" \
     "$uptime" \ 
+    "$architecture" \
+    "$cpuCount"
