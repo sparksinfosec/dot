@@ -23,6 +23,10 @@ _architecture() {
     architecture="$(uname -m)"
 }
 
+_boot_loader_call() {
+    cmdline="$(cat /proc/cmdline)"
+}
+
 _cpu_count() {
     cpuCount="$(grep -ic processor /proc/cpuinfo)"
 }
@@ -31,14 +35,35 @@ _uptime() {
     uptime="System $(uptime --pretty)"
 }
 
+_kernel(){
+    kernel="$(uname -r)"
+    # some better ones might be hostnamectl or cat /etc/*release
+}
+
+_start_up_time(){
+    startup="$(systemd-analyze time)"
+}
+
+_distro_name() {
+    distro="$(hostnamectl | grep -i system | cut -d':' -f2)"
+}
+
 
 _hostname 
 _uptime 
 _architecture
 _cpu_count 
+_boot_loader_call
+_kernel 
+_start_up_time
+_distro_name
 
 printf "%s\n" \
-    "$hostname" \
+    "Hostname: $hostname" \
     "$uptime" \
-    "$architecture" \
-    "$cpuCount"
+    "Architecture: $architecture" \
+    "CPUs: $cpuCount" \
+    "$cmdline" \
+    "Kernel: $kernel" \
+    "$startup" \
+    "Distro Name:$distro"
