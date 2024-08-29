@@ -15,8 +15,17 @@
 # virt info 
 # maybe netwwork info
 
-hostname(){ 
-    local hostname
-
-    hostname="$(hostnamectl | grep hostname | cut -d ':' -f 2)"
+hostname() { 
+    hostname="$(hostnamectl | grep hostname | awk '{print $3}')"
 } 
+
+_uptime() {
+    uptime="System $(uptime --pretty)"
+}
+
+hostname 
+_uptime 
+
+printf "\n%s\n" \
+    "$hostname" \
+    "$uptime" \ 
