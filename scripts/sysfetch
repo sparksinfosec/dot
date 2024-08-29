@@ -24,7 +24,7 @@ _architecture() {
 }
 
 _cpu_count() {
-    cpuCount="$(cat /proc/cpuinfo | grep -i processor | wc -l)"
+    cpuCount="$(grep -ic processor /proc/cpuinfo)"
 }
 
 _uptime() {
@@ -39,6 +39,6 @@ _cpu_count
 
 printf "%s\n" \
     "$hostname" \
-    "$uptime" \ 
+    "$uptime" \
     "$architecture" \
     "$cpuCount"
