@@ -2,18 +2,12 @@
 
 # Script to quickly grab system information
 # Include: 
-# HOSTNAME
-# CPU info 
-# uptime
 # Hardware info 
-# Kernel info 
 # Maybe number of kernel files in boot 
 # Number of packages? 
 # RAM and disk info 
 # swap info 
-# Distro 
 # virt info 
-# maybe netwwork info
 
 _hostname() { 
     hostname="$(hostnamectl | grep hostname | awk '{print $3}')"
@@ -61,9 +55,9 @@ _distro_name
 printf "%s\n" \
     "Hostname: $hostname" \
     "$uptime" \
+    "Distro Name:$distro" \
+    "Kernel: $kernel" \
+    "$cmdline" \
     "Architecture: $architecture" \
     "CPUs: $cpuCount" \
-    "$cmdline" \
-    "Kernel: $kernel" \
-    "$startup" \
-    "Distro Name:$distro"
+    "$startup" 
