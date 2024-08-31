@@ -4,7 +4,7 @@
 # Include: 
 # Hardware info 
 # Maybe number of kernel files in boot 
-# Number of packages? 
+# Number of packages? Should we determine what package manager is being used?
 # RAM and disk info 
 # swap info 
 # virt info 
@@ -42,6 +42,11 @@ _distro_name() {
     distro="$(hostnamectl | grep -i system | cut -d':' -f2)"
 }
 
+_hardware(){ # Need to better format this 
+    hardware_vendor="HW Vendor:$(hostnamectl | grep -i vendor | cut -d':' -f2)"
+    hardware_model="HW Model:$(hostnamectl | grep -i model | cut -d':' -f2)"
+}    
+
 
 _hostname 
 _uptime 
@@ -51,7 +56,9 @@ _boot_loader_call
 _kernel 
 _start_up_time
 _distro_name
+_hardware
 
+echo ""
 printf "%s\n" \
     "Hostname: $hostname" \
     "$uptime" \
@@ -60,4 +67,7 @@ printf "%s\n" \
     "$cmdline" \
     "Architecture: $architecture" \
     "CPUs: $cpuCount" \
-    "$startup" 
+    "$startup" \
+    "$hardware_model" \
+    "$hardware_vendor"
+echo ""
