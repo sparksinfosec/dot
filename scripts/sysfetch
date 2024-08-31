@@ -43,8 +43,8 @@ _distro_name() {
 }
 
 _hardware(){ # Need to better format this 
-    hardware_vendor="HW Vendor:$(hostnamectl | grep -i vendor | cut -d':' -f2)"
-    hardware_model="HW Model:$(hostnamectl | grep -i model | cut -d':' -f2)"
+    hardware_vendor="H/W Vendor:$(hostnamectl | grep -i vendor | cut -d':' -f2)"
+    hardware_model="H/W Model:$(hostnamectl | grep -i model | cut -d':' -f2)"
 }    
 
 
@@ -68,6 +68,6 @@ printf "%s\n" \
     "Architecture: $architecture" \
     "CPUs: $cpuCount" \
     "$startup" \
-    "$hardware_model" \
-    "$hardware_vendor"
+    "$hardware_vendor" \
+    "$hardware_model" 
 echo ""
