@@ -22,7 +22,7 @@ _boot_loader_call() {
 }
 
 _cpu_count() {
-    cpuCount="$(grep -ic processor /proc/cpuinfo)"
+    cpuCount="$(nproc)"
 }
 
 _uptime() {
