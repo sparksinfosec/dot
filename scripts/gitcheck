@@ -8,7 +8,6 @@
 # TODOs 
 # Maybe a check to make sure that you are running it in the right dir/area
 # add alittle color for the cd break it up alittle better
-# run on directories that contain directories that are git repos 
 # for i in *; do cd $i; git status; echo ""; cd ..;done 
 # Maybe add a sleep and time out the git status the same way pull does
 # Proper error checking (what if there is a merge conflict on a pull)
