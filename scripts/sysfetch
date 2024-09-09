@@ -2,12 +2,10 @@
 
 # Script to quickly grab system information
 # Include: 
-# Hardware info 
-# Maybe number of kernel files in boot 
-# Number of packages? Should we determine what package manager is being used?
+# Number of packages? Should we determine what package manager is being used? needs some logic
 # RAM and disk info 
 # swap info 
-# virt info 
+# virt info otherways besides hostnamectl vendor and model for this
 
 _hostname() { 
     hostname="$(hostnamectl | grep hostname | awk '{print $3}')"
