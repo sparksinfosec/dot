@@ -45,6 +45,28 @@ _hardware(){ # Need to better format this
     hardware_model="H/W Model:$(hostnamectl | grep -i model | cut -d':' -f2)"
 }    
 
+_packages(){ # Look to add more pack managers later
+    # Should we run the command to /dev/null and then capture the exit code?
+    command -v apt > /dev/null 2>&1 
+    apt_system=$?
+    command -v dnf > /dev/null 2>&1 
+    dnf_system=$?
+    command -v pacman > /dev/null 2>&1 
+    pacman_system=$?
+
+    if [[ $apt_system -eq 0 ]];then 
+        total_packages=$(apt list installed | sort | uniq | wc -l)
+    elif [[ dnf_system -eq 0 ]]; then 
+        total_packages=$(dnf list installed | sort | uniq | wc -l)
+    elif [[ $pacman_system  -eq 0 ]]; then 
+        total_packages=$(pacman -Q | sort | uniq | wc -l) 
+    else 
+        total_packages="Specific # of packages not found"
+    fi
+
+}
+
+
 
 _hostname 
 _uptime 
@@ -55,6 +77,7 @@ _kernel
 _start_up_time
 _distro_name
 _hardware
+_packages
 
 echo ""
 printf "%s\n" \
@@ -67,5 +90,6 @@ printf "%s\n" \
     "CPUs: $cpuCount" \
     "$startup" \
     "$hardware_vendor" \
-    "$hardware_model" 
+    "$hardware_model" \
+    "Packages: $total_packages"
 echo ""
