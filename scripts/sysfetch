@@ -55,7 +55,7 @@ _packages(){ # Look to add more pack managers later
     pacman_system=$?
 
     if [[ $apt_system -eq 0 ]];then 
-        total_packages=$(apt list installed | sort | uniq | wc -l)
+        total_packages=$(dpkg -l | sort | uniq | wc -l)
     elif [[ dnf_system -eq 0 ]]; then 
         total_packages=$(dnf list installed | sort | uniq | wc -l)
     elif [[ $pacman_system  -eq 0 ]]; then 
