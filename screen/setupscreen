@@ -1,0 +1,5 @@
+#!/bin/sh 
+
+test type screen > /dev/null 2>&1 && echo "Screen does not look to be installed skipping" && exit 1
+
+ln -sf "$PWD/.screenrc" "$HOME/.screenrc"
