@@ -7,7 +7,10 @@
 
 * Break down the different scripts 
 * Placement .local/bin
-* Note about mods for gpt 
+* Mods 
+    * Pull down the charmbracelet latest 
+    * Then extract and put it into path 
+    * ~/.local/bin (default)
 * Google and duck for lynx 
 
 ## Tmux 

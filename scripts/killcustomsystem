@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Thinking here is a script that will remove some custom tokens or configs
+# Essentially from my dot file I can spin up a custom env pretty quickly 
+# But what would be the best way to remove those custom configs and possibly remove any one off tokens I place 
+# For example gittoken and ~/.config/gpt/token 
+# So if they are added for a temp env I can make sure I can remove them safely 
+
+
