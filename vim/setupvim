@@ -1,5 +1,5 @@
 #!/usr/bin/env bash 
-
+# Maybe look into loading the vim setup script or pluginstall command automatically 
 if [[ -z "$(which vim)" || -z "$(which vimtutor)" ]]; then 
     echo "Does not look like full vim is installed"
 fi
