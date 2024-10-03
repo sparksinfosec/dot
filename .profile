@@ -2,7 +2,8 @@
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
 
-# eval "$(/opt/homebrew/bin/brew shellenv)" (mac bash changeup)
+# (mac bash changeup)
+# eval "$(/opt/homebrew/bin/brew shellenv)" 
 
 if [ -n "$BASH_VERSION" ]; then 
     # include .bashrc if it exists
