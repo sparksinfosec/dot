@@ -7,6 +7,7 @@
 #################################################################
 # TODOs 
 # Maybe a check to make sure that you are running it in the right dir/area
+# Better would be to check if the dir is a git dir and if not back out and do nothing (simple conditional check)
 # add alittle color for the cd break it up alittle better
 # for i in *; do cd $i; git status; echo ""; cd ..;done 
 # Maybe add a sleep and time out the git status the same way pull does
