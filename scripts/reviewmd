@@ -6,6 +6,7 @@
 # TO DO ----
 # * Maybe look at seeing if you can start the script with a line number passed to it 
 # EXAMPLE: reviewmd 300 file (start the review at that specific line number)
+# Also look to see what would be needed to clear the screen and start with next line return
 
 # NOTE: Only support 3 levels of indents on ordered and unorder list currently
     # 1
