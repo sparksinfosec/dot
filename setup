@@ -7,7 +7,7 @@ ln -sf "$PWD/.profile" "$HOME/.profile"
 ln -sf "$PWD/.profile" "$HOME/.bash_profile" # Not sure if needed
 ln -sf "$PWD/scripts" "$HOME/Scripts" 
 
-for i in vim lynx tmux scripts; do # should probably make sure scripts is always last in this list
+for i in vim lynx tmux scripts screen; do # should probably make sure scripts is always last in this list
     cd $i && ./setup${i}
     cd - 
 done
