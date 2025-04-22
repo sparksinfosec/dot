@@ -1,7 +1,8 @@
 # Stephen Sparks Dot File 
 
 * Update with a setup script (either per tool or one master shell script)
-* Set up symbolic links for you 
+* Set up symbolic links for you
+* Detail additional steps for custom env
 <!-- Make sure to put in some work and document the process to add the specific tools -->
 <!-- Don't just reply on the set up scripts you have -->
 
