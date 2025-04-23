@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 # Only other thing I think might be needed is to take the read search term $3 and not have to have it exact match 
+# Need to not be case sensitive 
 # This might mean we have to modify awk statement or grep -i
 #
 # TO DO ----
+# Add a help with proper format 
 # * Maybe look at seeing if you can start the script with a line number passed to it 
 # EXAMPLE: reviewmd 300 file (start the review at that specific line number)
 # Also look to see what would be needed to clear the screen and start with next line return
@@ -24,13 +26,13 @@ cyan=$'\e[36m'
 reset=$'\e[0m'
 
 
-linecount=$(wc -l "$1" | awk '{print $1}')
 
-if [[ "$2" == "list" && -f "$1" ]] #if second input of command is list plus the file exist (first input)
+if [[ "$1" == "list" && -f "$2" ]] #if second input of command is list plus the file exist (first input)
 then # Then we will read in file and just print out all headers 
-	exec 3<"$1"
+	exec 3<"$2"
 	echo ""
-	printf "${red}You are reviewing %s$reset\n" "${1}" # instead of echo -e 
+
+	printf "${red}You are reviewing %s$reset\n" "${2}" # instead of echo -e 
 	echo ""
 	while IFS= read -r -u 3 line || [[ -n "$line" ]]; do
 		case $line in
@@ -40,18 +42,20 @@ then # Then we will read in file and just print out all headers
               *);;
 		esac
 	done
-elif [[ "$2" == "read" && -f "$1" ]] # if second input is read and file exist
+elif [[ "$1" == "read" && -f "$3" ]] # if second input is read and file exist format reviewmd read match file
 then # Then read in file and use awk to print from 3 input (header name) to next header
-	exec 3<"$1"
+	exec 3<"$3"
 	echo ""
-    printf "${red}You are reviewing %s$reset\n" "${1}" # instead of echo -e 
+    printf "${red}You are reviewing %s$reset\n" "${2}" # instead of echo -e 
 	echo ""
-	awk '/^#.*/{f=0} /^#.*'"$3"'/{f=1} f' "$1" # awk begin and end check starts with the $3 with # in front to the next 
+	awk '/^#.*/{f=0} /^#.*'"$2"'/{f=1} f' "$3" # awk begin and end check starts with the $3 with # in front to the next 
 
 elif [ -f "$1" ] # lastly if no other input and the file exist 
 then
 # read the file line by line with enter 
        exec 3<"$1"
+
+       linecount=$(wc -l "$1" | awk '{print $1}')
        echo ""
        printf "${red}You are reviewing %s$reset\n" "${1}" # instead of echo -e 
        printf "${red}$linecount total lines\n ${reset}"
