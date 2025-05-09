@@ -2,6 +2,7 @@
 
 # Look into checking the domain as well (strip to the root domain on all cases)
 
+
 if command -v whois >/dev/null 2>&1 ; then # quick check to see if whois is on the system
         echo ""
     else
