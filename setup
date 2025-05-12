@@ -1,4 +1,5 @@
 #!/bin/sh
+# Need to look at vim plugin install
 set -e 
 
 ln -sf "$PWD/.bashrc" "$HOME/.bashrc"

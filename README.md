@@ -28,6 +28,7 @@
 ## Vim
 
 * .vimrc -> users home dir 
+* VIMPLUGINSTALL script
 * Look at adding shellcheck plugin 
 * Can use entr also but worth diving into alittle deeper
 

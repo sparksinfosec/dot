@@ -1,5 +1,9 @@
 #!/usr/bin/env bash 
 # Maybe look into loading the vim setup script or pluginstall command automatically 
+# Need to run vim and load the plugins also
+# have the script vimplugininstall 
+# Need to look when path is established and auto run it
+
 if [[ -z "$(which vim)" || -z "$(which vimtutor)" ]]; then 
     echo "Does not look like full vim is installed"
 fi
