@@ -5,6 +5,7 @@
 * Detail additional steps for custom env
 <!-- Make sure to put in some work and document the process to add the specific tools -->
 <!-- Don't just reply on the set up scripts you have -->
+<!-- Git settings and install as well (more personal use) -->
 
 ## Scripts 
 
