@@ -1,0 +1,4 @@
+#!/bin/sh 
+
+sudo apt update 
+sudo apt install qemu-kvm bridge-utils virt-manager libosinfo-bin libvirt virt-viewer -y
