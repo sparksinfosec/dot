@@ -17,7 +17,7 @@ _source_if() { [[ -r "$1" ]] && source "$1"; }
 
 export LANG=en_US.UTF-8 # assuming apt install language-pack-en done
 export USER="${USER:-$(whoami)}"
-export GITUSER="sparksinfosec" # $USER usually (set for local config) removed or modified in other installs
+export GITUSER="$USER" # $USER usually (set for local config) removed or modified in other installs
 export REPOS="$HOME/repos" # upper vs lower Repos dir
 export GHREPOS="$REPOS/github.com/$GITUSER"
 export DOTFILES="$GHREPOS/dot"
