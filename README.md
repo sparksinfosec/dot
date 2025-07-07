@@ -4,6 +4,7 @@
 * Set up symbolic links for you
 * Detail additional steps for custom env
 <!-- Make sure to put in some work and document the process to add the specific tools -->
+<!-- document exact steps in order to better fill this out and install anywhere testing on different distro -->
 <!-- Don't just reply on the set up scripts you have -->
 <!-- Git settings and install as well (more personal use) -->
 
