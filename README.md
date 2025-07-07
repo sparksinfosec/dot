@@ -30,7 +30,7 @@
 ## Vim
 
 * .vimrc -> users home dir 
-* VIMPLUGINSTALL script
+* VIMPLUGINSTALL script (needs to run to load vim plugins)
 * Look at adding shellcheck plugin 
 * Can use entr also but worth diving into alittle deeper
 
