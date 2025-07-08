@@ -43,3 +43,11 @@
 ## Screen 
 
 * Custom screen config from het_tanis via Prolug group
+
+## GPT/Mods setup 
+
+* Ran into an issue where not mods.db file was created at .local/share/mods 
+* What is needed 
+    * Install (multiple ways)
+    * Make sure the token is created (~/.config/gpt/token)
+    * 
