@@ -1,5 +1,7 @@
 # Stephen Sparks Dot File 
 
+* Look at a script that will do everything (big may need something with alot of care)
+* Need to refine docs
 * Update with a setup script (either per tool or one master shell script)
 * Set up symbolic links for you
 * Detail additional steps for custom env
@@ -10,7 +12,7 @@
 
 ## Scripts 
 
-* Break down the different scripts 
+* Break down the different scripts
 * Placement .local/bin
 * Mods 
     * Pull down the charmbracelet latest 

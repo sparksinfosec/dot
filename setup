@@ -1,6 +1,9 @@
 #!/bin/sh
 # Need to look at vim plugin install
+# expanding this to include everything that is needed (or calling seperate scripts)
+# further expand with python and go
 set -e 
+
 
 ln -sf "$PWD/.bashrc" "$HOME/.bashrc"
 ln -sf "$PWD/.dircolors" "$HOME/.dircolors"
