@@ -1,20 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 user=charmbracelet
 repo=mods
 
 arch=$(uname -m)
-[ "$arch" = x86_64 ] && arch=amd64
 
 latest="https://api.github.com/repos/$user/$repo/releases/latest"
-ver=$(curl -sS "$latest" | jq -r .zipball_url) && test -n "$ver"
-ver=${ver##*/}
-ver=${ver#v}
-deb="${repo}_${ver}_${arch}.deb"
-url="https://github.com/$user/$repo/releases/download/v${ver}/$deb"
+url=$(curl -s "$latest" | jq -r --arg arch "$arch" '.assets[].browser_download_url | select(endswith(".rpm") and contains($arch))')
+ver=${url##*/}
+
 
 dir="$(mktemp -d)"
 echo "$dir"
 cd "$dir"
-curl -LO "$url" && sudo dpkg -i ./*.deb
+curl -LO "$url" && sudo rpm -i "$ver"
+
