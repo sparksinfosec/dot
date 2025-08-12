@@ -9,7 +9,7 @@ if has("eval")
 endif 
 
 " look at guicursor settings to make the cursor more visible
-set cursorline
+" set cursorline "
 
 " for the ruf and showcmd formatting 
 set laststatus=2
@@ -114,6 +114,8 @@ Plug 'morhetz/gruvbox'
 
 call plug#end()
 colorscheme gruvbox
+else 
+	colorscheme slate
 endif
 
 " Rule format
