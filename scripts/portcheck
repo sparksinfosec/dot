@@ -1,0 +1,10 @@
+#!/user/bin/env bash
+
+# Port check with /dev/tcp/IP/PORT
+# Goal is to make a quick a dirty port check providing port and IP
+# Additional functionality might include:
+# Quick range check given multiple ports or range of ports 
+# Right now likely just a single IP option maybe multiple different port options. 
+# Native bash script to replace the need to install telnet or other installed tools like nc
+
+
