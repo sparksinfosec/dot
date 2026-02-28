@@ -2,4 +2,4 @@
 
 # libcruses and cpan term:animation is for fishes 
 # Larger overhead but fun to try out script
-sudo dnf install -y lynx tmux python-is-python3 pip curl bash-completion net-tools
+sudo dnf install -y dnf-utils lynx tmux python-is-python3 pip curl bash-completion net-tools
