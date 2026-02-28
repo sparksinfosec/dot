@@ -2,6 +2,7 @@
 # Need to look at vim plugin install
 # expanding this to include everything that is needed (or calling seperate scripts)
 # further expand with python and go
+# Look at possible removeal of packages (but would need to be package specific)
 set -e 
 
 
