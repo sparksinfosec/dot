@@ -187,10 +187,9 @@ PROMPT_COMMAND="__ps1"
 unalias -a
 alias ports='less /etc/services'
 alias redobash='exec bash -l' # adding just for config for easy reload of bash 
-alias gittoken='cat $HOME/.gittoken' # Local config only (removed on broader installs)
 alias ip='ip -c'
 alias '?'=duck
-alias '??'=gpt
+alias '??'=aichat "$@"
 alias '???'=google
 alias dot='cd $DOTFILES'
 alias scripts='cd $SCRIPTS'
