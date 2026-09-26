@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+die() {
+    printf 'Error: %s\n' "$*" >&2
+    exit 1
+}
+
+if [[ -e "$HOME/.local/bin/crush" || -L "$HOME/.local/bin/crush" ]]; then
+    printf 'Crush already exists at %s. Overwrite it? [y/N] ' "$HOME/.local/bin/crush"
+    confirmation=''
+    if ! read -r confirmation; then
+        printf '\nInstallation cancelled.\n'
+        exit 0
+    fi
+    case "$confirmation" in
+        y|Y|yes|YES|Yes) ;;
+        *)
+            printf 'Installation cancelled.\n'
+            exit 0
+            ;;
+    esac
+fi
+
+for dependency in curl jq tar sha256sum uname; do
+    command -v "$dependency" >/dev/null 2>&1 ||
+        die "Required command not found: $dependency"
+done
+
+[[ "$(uname -s)" == Linux ]] || die "This script supports Linux only."
+
+case "$(uname -m)" in
+    x86_64) architecture='(x86_64|amd64)' ;;
+    aarch64|arm64) architecture='(aarch64|arm64)' ;;
+    *) die "Unsupported architecture: $(uname -m)" ;;
+esac
+
+download() {
+    curl --fail --silent --show-error --location \
+        --proto '=https' --proto-redir '=https' \
+        --connect-timeout 15 --max-time 300 --retry 3 \
+        "$@"
+}
+
+owner=charmbracelet
+repository=crush
+release_api="https://api.github.com/repos/$owner/$repository/releases/latest"
+release=$(download "$release_api")
+asset=$(
+    jq -ce --arg architecture "$architecture" '
+        [
+            .assets[]
+            | select(
+                .name
+                | test(
+                    "(^|[_-])linux[_-]" + $architecture + "\\.tar\\.gz$";
+                    "i"
+                )
+            )
+        ]
+        | if length == 1 then .[0]
+          else error("Expected exactly one matching Linux archive")
+          end
+    ' <<< "$release"
+) || die "Could not select a unique archive for this architecture."
+
+download_url=$(jq -er '.browser_download_url' <<< "$asset")
+digest=$(jq -er '
+    .digest
+    | select(type == "string")
+    | select(test("^sha256:[0-9a-fA-F]{64}$"))
+' <<< "$asset") || die "Release asset has no usable SHA-256 digest."
+
+mkdir -p "$HOME/.local/bin"
+archive="$HOME/.local/crush.tar.gz"
+binary="$HOME/.local/crush"
+
+(set -o noclobber; : > "$archive") || die "Refusing to overwrite $archive"
+trap 'rm -f -- "$archive"' EXIT
+(set -o noclobber; : > "$binary") || die "Refusing to overwrite $binary"
+trap 'rm -f -- "$archive" "$binary"' EXIT
+
+download "$download_url" --output "$archive"
+printf '%s  %s\n' "${digest#sha256:}" "$archive" |
+    sha256sum --check --status || die "Archive failed checksum verification."
+
+contents=$(tar -tzf "$archive")
+members=()
+while IFS= read -r member; do
+    case "$member" in
+        crush|*/crush) members+=("$member") ;;
+    esac
+done <<< "$contents"
+
+(( ${#members[@]} == 1 )) || die "Expected exactly one crush binary in the archive."
+tar -xOzf "$archive" -- "${members[0]}" > "$binary"
+[[ -s "$binary" ]] || die "Extracted binary is empty."
+chmod 0755 "$binary"
+mv -fT -- "$binary" "$HOME/.local/bin/crush"
+
+printf 'Installed: %s\n' "$HOME/.local/bin/crush"
