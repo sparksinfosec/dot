@@ -99,3 +99,6 @@ chmod 0755 "$binary"
 mv -fT -- "$binary" "$HOME/.local/bin/crush"
 
 printf 'Installed: %s\n' "$HOME/.local/bin/crush"
+printf 'Crush config: %s/.config/crush/crushrc\n' "$HOME"
+printf 'Check that your provider API key is configured before starting Crush.\n'
+printf 'Keep API keys out of shared dotfiles; restrict files containing them to mode 600.\n'
