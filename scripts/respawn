@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Check if a hostname or IP was provided
+if [ -z "$1" ]; then
+        echo "Usage: $0 <hostname_or_ip>"
+            exit 1
+            fi
+
+            TARGET="$1"
+
+# DNS Check: Verify the hostname resolves to an IP address
+echo "Checking DNS resolution for $TARGET..."
+if ! getent hosts "$TARGET" >/dev/null 2>&1; then
+        echo "Error: Hostname '$TARGET' does not resolve in DNS."
+            exit 1
+            fi
+
+            echo "DNS look up successful. Waiting for $TARGET to go down and come back up..."
+
+# Optional: Wait until the machine actually goes offline first
+# while ping -c 1 -W 1 "$TARGET" >/dev/null 2>&1; do
+#     sleep 2
+# done
+# echo "Machine is down. Waiting for it to boot..."
+
+# Loop until the ping is successful
+until ping -c 1 -W 1 "$TARGET" >/dev/null 2>&1; do
+    echo -n "."
+        sleep 2
+        done
+
+        echo -e "\n$TARGET is up! Connecting via SSH..."
+
+# Connect to the machine
+ssh "$TARGET"
+
